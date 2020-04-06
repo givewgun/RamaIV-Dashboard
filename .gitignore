@@ -1,0 +1,5 @@
+.vscode/
+__pycache__/
+venv/
+tabs/__pycache__/
+tabs/config/gcloud_credential.json
