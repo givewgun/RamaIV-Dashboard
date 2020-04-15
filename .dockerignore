@@ -5,6 +5,7 @@ tabs/__pycache__/
 .vscode/
 .git
 .gitignore
+cloudbuild.yaml
 
 README.md
 *.pyc
