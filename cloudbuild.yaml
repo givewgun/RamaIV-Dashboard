@@ -1,7 +1,7 @@
  steps:
  # build the container image
  - name: 'gcr.io/cloud-builders/docker'
-   args: ['build', '-t', 'gcr.io/$PROJECT_ID/ramaivDashboard', '.']
+   args: ['build', '-t', 'gcr.io/$PROJECT_ID/ramaivdashboard', '.']
  # push the container image to Container Registry
 #  - name: 'gcr.io/cloud-builders/docker'
 #    args: ['push', 'gcr.io/$PROJECT_ID/ramaivDashboard']
@@ -10,12 +10,12 @@
    args:
    - 'run'
    - 'deploy'
-   - 'ramaivDashboard'
+   - 'ramaivdashboard'
    - '--image'
-   - 'gcr.io/$PROJECT_ID/ramaivDashboard'
+   - 'gcr.io/$PROJECT_ID/ramaivdashboard'
    - '--region'
    - 'asia-east1'
    - '--platform'
    - 'managed'
  images:
- - 'gcr.io/$PROJECT_ID/ramaivDashboard'
+ - 'gcr.io/$PROJECT_ID/ramaivdashboard'
