@@ -25,7 +25,7 @@ UPDATE_INTERVAL = 60*5 #seconds
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"""C:\Users\givew\Documents\senior\dashboard\tabs\config\gcloud_credential.json"""
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"""C:\Users\givew\Documents\senior\dashboard\tabs\config\gcloud_credential.json"""
 project_id = 'taxi-272612'
 client = bigquery.Client()
 

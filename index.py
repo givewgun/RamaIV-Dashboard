@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output, State
 from app import app
 from tabs import tab_1
 from tabs import tab_2
+from tabs import tab_3
 
 server = app.server
 
@@ -38,6 +39,7 @@ app.layout = html.Div(
             className="row tabs",
             children=[
                 dcc.Link("Live update", href="/"),
+                dcc.Link("Forecast", href="/"),
                 dcc.Link("Historical", href="/"),
             ],
         ),
@@ -47,6 +49,7 @@ app.layout = html.Div(
             style={"display": "none"},
             children=[
                 dcc.Link("Live update", href="/"),
+                dcc.Link("Forecast", href="/"),
                 dcc.Link("Historical", href="/"),
             ],
         ),
@@ -81,6 +84,7 @@ app.layout = html.Div(
 def display_page(pathname):
     tabs = [
         dcc.Link("Live update", href="/live"),
+        dcc.Link("Forecast", href="/forecast"),
         dcc.Link("Historical", href="/history"),
         # dcc.Link("Cases", href="/dash-salesforce-crm/cases"),
     ]
@@ -90,18 +94,30 @@ def display_page(pathname):
             href="/live",
         )
         return tab_1.layout, tabs, tabs
-    elif pathname == "/history":
+    elif pathname == "/forecast":
+        # print("forecast")
         tabs[1] = dcc.Link(
+            dcc.Markdown("**&#9632 Forecast**"), 
+            href="/forecast",
+        )
+        return tab_2.layout, tabs, tabs
+    elif pathname == "/history":
+        tabs[2] = dcc.Link(
             dcc.Markdown("**&#9632 Historical**"), 
             href="/history",
         )
-        return tab_2.layout, tabs, tabs
+        return tab_3.layout, tabs, tabs
     else:
-        tabs[0] = dcc.Link(
-            dcc.Markdown("**&#9632 Live update**"),
-            href="/live",
+        tabs[2] = dcc.Link(
+            dcc.Markdown("**&#9632 Historical**"), 
+            href="/history",
         )
-        return tab_1.layout, tabs, tabs
+        return tab_3.layout, tabs, tabs
+        # tabs[0] = dcc.Link(
+        #     dcc.Markdown("**&#9632 Live update**"),
+        #     href="/live",
+        # )
+        # return tab_1.layout, tabs, tabs
     # tabs[1] = dcc.Link(
     #     dcc.Markdown("**&#9632 Leads**"), href="/dash-salesforce-crm/leads"
     # )
