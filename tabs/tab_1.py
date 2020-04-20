@@ -14,14 +14,20 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import json
 
-from google.oauth2 import service_account
-import pandas_gbq
+# from google.oauth2 import service_account
+# import pandas_gbq
+from google.cloud import bigquery
 import os
 
 from app import app
 
-UPDATE_INTERVAL = 60 #seconds
+UPDATE_INTERVAL = 60*5 #seconds
+
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"""C:\Users\givew\Documents\senior\dashboard\tabs\config\gcloud_credential.json"""
+project_id = 'taxi-272612'
+client = bigquery.Client()
 
 east_w = []
 east_seg = []
@@ -72,12 +78,12 @@ def load_segment():
     east_seg_id = { float(key):value for key,value in east_seg_id.items()}
     west_seg_id = { float(key):value for key,value in west_seg_id.items()}
 
-def connect_bq():
-    credentials = service_account.Credentials.from_service_account_file(
-        os.path.join(THIS_FOLDER, 'config', 'gcloud_credential.json'),
-    )
-    pandas_gbq.context.credentials = credentials
-    pandas_gbq.context.project = "taxi-272612"
+# def connect_bq():
+#     credentials = service_account.Credentials.from_service_account_file(
+#         os.path.join(THIS_FOLDER, 'config', 'gcloud_credential.json'),
+#     )
+#     pandas_gbq.context.credentials = credentials
+#     pandas_gbq.context.project = "taxi-272612"
 
 def gen_query():
     now = datetime.datetime.now()
@@ -382,7 +388,7 @@ def plot_map(df, date):
 
 
 load_segment()
-connect_bq()
+# connect_bq()
 
 layout = html.Div(children=[
     html.H1(
@@ -425,7 +431,7 @@ def update_time(n):
 def update_graph_live(n):
     sql, now = gen_query()
     
-    df = pandas_gbq.read_gbq(sql)
+    df = client.query(sql, project=project_id).to_dataframe()
 
     df = df[df['wayids'].isin(rama_iv_way)]
     df['direction'] = 'west'
