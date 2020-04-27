@@ -24,17 +24,17 @@ app.layout = html.Div(
                         dcc.Markdown("**RAMA 4 Dashboard**"),
                     ],
                 ),
-                html.Span(
-                    className="app-title",
-                    children=[
-                        html.Div(id='live-update-text'),
-                        dcc.Interval(
-                            id='current-time-interval',
-                            interval=1*1000, # in milliseconds
-                            n_intervals=0
-                        ),
-                    ],
-                ),
+                # html.Span(
+                #     className="app-title",
+                #     children=[
+                #         html.Div(id='live-update-text'),
+                #         dcc.Interval(
+                #             id='current-time-interval',
+                #             interval=1*1000, # in milliseconds
+                #             n_intervals=0
+                #         ),
+                #     ],
+                # ),
                 html.Img(src=app.get_asset_url("Logo.jpg"), style={'height':'15%', 'width':'15%'}),
                 html.A(
                     id="learn_more",
@@ -85,14 +85,14 @@ app.layout = html.Div(
     
 )
 
-@app.callback(Output('live-update-text', 'children'),
-              [Input('current-time-interval', 'n_intervals')])
-def update_time(n):
-    now = datetime.datetime.now()
-    cur_time = now.strftime("%H:%M")
-    # style = {'padding': '5px', 'fontSize': '16px'}
+# @app.callback(Output('live-update-text', 'children'),
+#               [Input('current-time-interval', 'n_intervals')])
+# def update_time(n):
+#     now = datetime.datetime.now()
+#     cur_time = now.strftime("%H:%M")
+#     # style = {'padding': '5px', 'fontSize': '16px'}
 
-    return html.P(children=[html.Small("Now : " + cur_time)])     
+#     return html.P(children=[html.Small("Now : " + cur_time)])     
 
 @app.callback(
     [
@@ -129,11 +129,11 @@ def display_page(pathname):
         )
         return tab_3.layout, tabs, tabs
     else:
-        tabs[2] = dcc.Link(
-            dcc.Markdown("**&#9632 Historical**"), 
-            href="/history",
+        tabs[0] = dcc.Link(
+            dcc.Markdown("**&#9632 Live update**"),
+            href="/live",
         )
-        return tab_3.layout, tabs, tabs
+        return tab_1.layout, tabs, tabs
         # tabs[0] = dcc.Link(
         #     dcc.Markdown("**&#9632 Live update**"),
         #     href="/live",
