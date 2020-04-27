@@ -7,6 +7,7 @@ from app import app
 from tabs import tab_1
 from tabs import tab_2
 from tabs import tab_3
+import datetime
 
 
 server = app.server
@@ -21,10 +22,16 @@ app.layout = html.Div(
                     className="app-title",
                     children=[
                         dcc.Markdown("**RAMA 4 Dashboard**"),
-                        html.Span(
-                            id="subtitle",
-                            children=dcc.Markdown(" by Gunizuka"),
-                            style={"font-size": "0.8rem", "margin-top": "20px"},
+                    ],
+                ),
+                html.Span(
+                    className="app-title",
+                    children=[
+                        html.Div(id='live-update-text'),
+                        dcc.Interval(
+                            id='current-time-interval',
+                            interval=1*1000, # in milliseconds
+                            n_intervals=0
                         ),
                     ],
                 ),
@@ -70,10 +77,22 @@ app.layout = html.Div(
         html.Link(
             href="https://fonts.googleapis.com/css?family=Ubuntu", rel="stylesheet"
         ),
+
     ],
     className="row",
     style={"margin": "0%"},
+
+    
 )
+
+@app.callback(Output('live-update-text', 'children'),
+              [Input('current-time-interval', 'n_intervals')])
+def update_time(n):
+    now = datetime.datetime.now()
+    cur_time = now.strftime("%H:%M")
+    # style = {'padding': '5px', 'fontSize': '16px'}
+
+    return html.P(children=[html.Small("Now : " + cur_time)])     
 
 @app.callback(
     [
@@ -141,4 +160,4 @@ def show_menu(n_clicks, tabs_style):
 
 
 if __name__ == '__main__':
-     app.run_server(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=False)
+     app.run_server(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=True)
