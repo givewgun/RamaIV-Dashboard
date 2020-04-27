@@ -1,0 +1,14 @@
+Dockerfile
+__pycache__/
+venv/
+tabs/__pycache__/
+.vscode/
+.git
+.gitignore
+
+DEPLOY-GUIDE.md
+README.md
+*.pyc
+*.pyo
+*.pyd
+__pycache__

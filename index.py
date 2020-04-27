@@ -2,10 +2,12 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
+import os
 from app import app
 from tabs import tab_1
 from tabs import tab_2
 from tabs import tab_3
+
 
 server = app.server
 
@@ -139,4 +141,4 @@ def show_menu(n_clicks, tabs_style):
 
 
 if __name__ == '__main__':
-     app.run_server(host='0.0.0.0', port=8050, debug=True)
+     app.run_server(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=False)
