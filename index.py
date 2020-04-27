@@ -160,4 +160,4 @@ def show_menu(n_clicks, tabs_style):
 
 
 if __name__ == '__main__':
-     app.run_server(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=True)
+     app.run_server(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=False)

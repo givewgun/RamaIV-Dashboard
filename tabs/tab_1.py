@@ -14,8 +14,6 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import json
 
-# from google.oauth2 import service_account
-# import pandas_gbq
 from google.cloud import bigquery
 import os
 
@@ -26,20 +24,13 @@ UPDATE_INTERVAL = 60*5 #seconds
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"""C:\Users\givew\Documents\senior\dashboard\tabs\config\gcloud_credential.json"""
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"""C:\Users\givew\Documents\senior\dashboard\tabs\config\gcloud_credential.json"""
 project_id = 'taxi-272612'
 client = bigquery.Client()
 
 east_w = segmet_loader.east_w
 west_w = segmet_loader.west_w
 rama_iv_way = segmet_loader.rama_iv_way
-
-# def connect_bq():
-#     credentials = service_account.Credentials.from_service_account_file(
-#         os.path.join(THIS_FOLDER, 'config', 'gcloud_credential.json'),
-#     )
-#     pandas_gbq.context.credentials = credentials
-#     pandas_gbq.context.project = "taxi-272612"
 
 def gen_query():
     now = datetime.datetime.now()
@@ -56,7 +47,6 @@ def gen_query():
 
     return (sql, "%s %s"%(cur_date,cur_time))
 
-# connect_bq()
 
 layout = html.Div(children=[
     html.H1(
